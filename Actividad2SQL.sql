@@ -21,3 +21,21 @@ CREATE TABLE clientes (
     direccion VARCHAR(50),
     fecha_nac VARCHAR(10)
 );
+
+create table proveedor_suministra_producto (
+	NIF VARCHAR(9),
+    id_producto int,
+    cantidad int not null,
+    primary key(NIF, codigo),
+    foreign key(NIF) references PROVEEDOR(NIF),
+    foreign key(codigo) references PRODUCTO(codigo)
+);
+
+create table cliente_compra_producto (
+	DNI VARCHAR(9),
+    codigo int,
+    cantidad int not null,
+    primary key(DNI, codigo),
+    foreign key(DNI) references CLIENTES(DNBI),
+    foreign key(codigo) references PRODUCTO(codigo)
+);
