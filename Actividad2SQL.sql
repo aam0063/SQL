@@ -1,4 +1,4 @@
-DROP DATABASE IF exists proveedores;
+DROP DATABASE IF exists esproveedor;
 create database proveedores;
 use proveedores;
 
