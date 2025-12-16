@@ -1,0 +1,87 @@
+
+Level 1: The Basics (Filtering and Selecting)
+1. (Tienda) Find specific products by price. Write a query to show all data for products that cost more than 100 €. Hint: You need a comparison operator.
+select * from productos where Precio > 100;
+2. (Liga) Search for text patterns. Find all data for teams where the website (web) contains the word "basket". Hint: Use the % wildcard.
+select * from equipo where web like '%basket%';
+3. (Tienda) Filter by multiple conditions. List all clients who live in either 'Madrid' or 'Barcelona'. Hint: You can use OR logic.
+select * from Clientes where Ciudad = 'Madrid' or Ciudad = 'Barcelona';
+4. (Liga) Filter by date parts. Find all matches (partido) that were played specifically in the month of February (Month 2). Hint: Use a function to pull the month out of the fecha column.
+select * from partido WHERE EXTRACT(month FROM fecha) = 2;
+
+--------------------------------------------------------------------------------
+Level 2: Sorting and Text Manipulation
+5. (Tienda) Sorting data. List all products, but order them by price from highest to lowest. Hint: ASC is default, what is the opposite?
+select * from productos order by precio DESC;
+6. (Liga) Cleaning up text. Show a list of team websites, but replace the text "http://" with nothing (effectively removing it). Hint: Use the REPLACE function.
+select replace(web, 'http://', '') from equipo;
+7. (Tienda) Uppercase conversion. Show a list of all client names converted entirely to uppercase letters. Hint: There is a function specifically for capital letters.
+select upper(nombre) from Clientes
+8. (Liga) Concatenation. Create a query that returns a single column called "Nombre Completo". It should combine the nombre and apellido of the players, separated by a space, and be in uppercase. Hint: Use || or CONCAT along with UPPER.
+
+--------------------------------------------------------------------------------
+Level 3: Aggregates and Grouping
+9. (Tienda) Counting items per group. Count how many manufacturers (fabricantes) exist in each country (pais). Hint: You need to GROUP BY the country.
+10. (Liga) Calculating averages. Calculate the average salary (salario) for each team (equipo). Hint: Use the AVG function and group by the team ID.
+11. (Tienda) Filtering groups (The "HAVING" clause). Show the IDs of manufacturers (Id_fab) that have more than one product listed in the database. Hint: You cannot use WHERE on an aggregate count; you must use HAVING.
+12. (Liga) Min/Max values. Find the maximum and minimum salary for each team, and calculate the difference between them. Hint: You can perform math (minus) between two aggregate functions.
+
+--------------------------------------------------------------------------------
+Level 4: Logic and Advanced Dates
+13. (Tienda) Logic with CASE. Create a query for the Pedidos table that creates a new column called "EstadoPersonalizado".
+• If Estado is 'Completado', call it 'Finalizado'.
+• If Estado is 'Cancelado', call it 'Anulado'.
+• Otherwise, call it 'En Gestión'. Hint: Use CASE WHEN ... THEN ... END.
+14. (Tienda) Date arithmetic. Calculate how many days have passed between the order date (Fecha_pedido) and today. Hint: In Oracle/SQL, you can often subtract a date column from the system date function.
+
+Level 1: The Basics (Filtering and Selecting)
+1. (Tienda) Find specific products by price. Write a query to show all data for products that cost more than 100 €. Hint: You need a comparison operator.
+2. (Liga) Search for text patterns. Find all data for teams where the website (web) contains the word "basket". Hint: Use the % wildcard.
+3. (Tienda) Filter by multiple conditions. List all clients who live in either 'Madrid' or 'Barcelona'. Hint: You can use OR logic.
+4. (Liga) Filter by date parts. Find all matches (partido) that were played specifically in the month of February (Month 2). Hint: Use a function to pull the month out of the fecha column.
+
+--------------------------------------------------------------------------------
+Level 2: Sorting and Text Manipulation
+5. (Tienda) Sorting data. List all products, but order them by price from highest to lowest. Hint: ASC is default, what is the opposite?
+6. (Liga) Cleaning up text. Show a list of team websites, but replace the text "http://" with nothing (effectively removing it). Hint: Use the REPLACE function.
+7. (Tienda) Uppercase conversion. Show a list of all client names converted entirely to uppercase letters. Hint: There is a function specifically for capital letters.
+8. (Liga) Concatenation. Create a query that returns a single column called "Nombre Completo". It should combine the nombre and apellido of the players, separated by a space, and be in uppercase. Hint: Use || or CONCAT along with UPPER.
+
+--------------------------------------------------------------------------------
+Level 3: Aggregates and Grouping
+9. (Tienda) Counting items per group. Count how many manufacturers (fabricantes) exist in each country (pais). Hint: You need to GROUP BY the country.
+10. (Liga) Calculating averages. Calculate the average salary (salario) for each team (equipo). Hint: Use the AVG function and group by the team ID.
+11. (Tienda) Filtering groups (The "HAVING" clause). Show the IDs of manufacturers (Id_fab) that have more than one product listed in the database. Hint: You cannot use WHERE on an aggregate count; you must use HAVING.
+12. (Liga) Min/Max values. Find the maximum and minimum salary for each team, and calculate the difference between them. Hint: You can perform math (minus) between two aggregate functions.
+
+--------------------------------------------------------------------------------
+Level 4: Logic and Advanced Dates
+13. (Tienda) Logic with CASE. Create a query for the Pedidos table that creates a new column called "EstadoPersonalizado".
+• If Estado is 'Completado', call it 'Finalizado'.
+• If Estado is 'Cancelado', call it 'Anulado'.
+• Otherwise, call it 'En Gestión'. Hint: Use CASE WHEN ... THEN ... END.
+14. (Tienda) Date arithmetic. Calculate how many days have passed between the order date (Fecha_pedido) and today. Hint: In Oracle/SQL, you can often subtract a date column from the system date function.
+
+--------------------------------------------------------------------------------
+Solution Key (Based on your Sources)
+1. Answer: SELECT * FROM Productos WHERE Precio > 100.00;
+2. Answer: SELECT * FROM equipo WHERE web LIKE '%basket%';
+3. Answer: SELECT * FROM Clientes WHERE Ciudad='Madrid' or ciudad = 'Barcelona';
+4. Answer: SELECT * FROM partido WHERE EXTRACT(month FROM fecha) = 2;
+5. Answer: SELECT * FROM Productos ORDER BY Precio DESC;
+6. Answer: SELECT REPLACE(web, 'http://', '') FROM equipo;
+7. Answer: SELECT UPPER(Nombre) AS Nombre_Mayusculas FROM Clientes;
+8. Answer: SELECT UPPER(nombre || ' ' || apellido) AS "Nombre Completo" FROM jugador;
+9. Answer: SELECT Pais, COUNT(Id_fab) AS Total_Fabricantes FROM Fabricantes GROUP BY Pais;
+10. Answer: select equipo, avg(salario) from jugador group by equipo
+11. Answer: SELECT Id_fab, COUNT(Id_producto) AS Total_Productos FROM Productos GROUP BY Id_fab HAVING COUNT(Id_producto) > 1;
+12. Answer: select equipo, max(salario), min(salario), max(salario) - min(salario) as salario_dif from jugador group by equipo;
+13. Answer:
+SELECT N_pedido, Estado,
+CASE
+WHEN Estado = 'Completado' THEN 'Finalizado'
+WHEN Estado = 'Cancelado' THEN 'Anulado'
+ELSE 'En Gestión'
+END AS EstadoPersonalizado
+FROM Pedidos;
+14. Answer: SELECT N_pedido, Fecha_pedido, SYSDATE - Fecha_pedido AS Dias_Transcurridos FROM Pedidos;

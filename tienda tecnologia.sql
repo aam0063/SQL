@@ -10,7 +10,7 @@ CREATE TABLE Clientes (
     Nombre VARCHAR(100) NOT NULL,
     Direccion VARCHAR(255),
     Ciudad VARCHAR(100),
-    Telefono VARCHAR(20),
+    Telefono VARCHAR(20),   
     Email VARCHAR(100) UNIQUE NOT NULL,
     Fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
