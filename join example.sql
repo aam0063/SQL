@@ -55,6 +55,22 @@ select * from imparte i RIGHT JOIN profesores p ON (p.dni=i.dni);
 select * from prepara pr right join profesores p on (pr.dni=p.dni);
 select * from prepara pr left join profesores p on (pr.dni=p.dni);
 
+-- SUBCONSULTAS
+
+-- 1.Mostrar todos los datos de las asignaturas que tienen mas creditos que la asignatura PC
+select * from asignaturas;
+select * from asignaturas where creditos > (select creditos from asignaturas where codigo = "PC");
+
+-- 2.Mostrar la descripcion de las asignaturas que tienen mas creditos que todas las demas
+select * from asignaturas;
+select descripcion from asignaturas where creditos = (select max(creditos) from asignaturas);
+select descripcion from asignaturas where creditos >= ALL (select creditos from asignaturas);
+
+-- 3. Nombre de las asignaturas que no son las que menos creditos tienen
+select * from asignaturas where creditos > (select min(creditos) from asignaturas);
+select * from asignaturas where creditos > any (select creditos from asignaturas);
+
+
 
 
 
