@@ -72,3 +72,14 @@ FROM equipo e
 JOIN partido p ON e.id_equipo = p.visitante
 JOIN equipo ev ON p.local = ev.id_equipo
 WHERE ev.nombre = 'P.E. Valencia';
+
+-- 5. Datos de los jugadores mejor pagados y peor pagados de la liga
+select * from jugador where salario = (select max(salario) from jugador) or salario = (select min(salario) from jugador);
+
+-- 6. Datos del jugador mas antiguo, es decir, el que lleva mas tiempo dado de alta en un eqiupo
+select * from jugador where fecha_alta = (select min(fecha_alta) from jugador);
+
+-- 7. Datos de los equipos que tienen mas de tres jugadores registrados
+select id_equipo, e.nombre, count(*) as suma from equipo e join jugador j on (e.id_equipo=j.equipo) group by id_equipo having suma >3;
+
+-- 8. 
