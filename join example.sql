@@ -96,7 +96,7 @@ select * from profesores where dni in (select dni from prepara);
 select * from profesores where dni not in (select dni from prepara)
 	and dni not in (select dni from imparte);
     
--- 11. Tenemos profesores?
+-- 11. Mostrar datos de las asignaturas que tienen más créditos que todas las demás.
 select exists (select * from profesores) as respuesta;
 
 
