@@ -78,5 +78,13 @@ select * from grado;
 select g.nombre, sum(creditos) as total_creditos from asignatura a join grado g on (g.id = a.id_grado) group by g.nombre;
 
 -- 14. Asignaturas que pertenecen al mismo grado que "Bases de datos"
+select * from asignatura where id_grado = 
+(select id_grado from asignatura where nombre = 'Base de datos');
 
--- 15. Nombre de las asignaturas 
+-- 15. Nombre de las asignaturas que no son las que menos creditos tienen
+select nombre from asignatura where creditos not in (select min(creditos) from asignatura);
+
+select * from asignatura where creditos > any (select creditos from asignatura);
+
+-- 16. Nombre de las asignaturas que no son las que mas creditos tienen
+select nombre from asignatura where creditos not in (select max(creditos) from asignatura);
