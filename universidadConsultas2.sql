@@ -48,13 +48,24 @@ select * from asignatura where creditos = (select max(creditos) from asignatura)
 select * from asignatura where creditos = (select min(creditos) from asignatura);
 
 -- 13. Muestra por cada grado la suma de sus créditos.
-
+select g.nombre, sum(a.creditos) as suma_creditos from grado g join
+ asignatura a on (g.id = a.id_grado) group by g.nombre;
 
 -- 14. Asignaturas que pertenecen al mismo grado que “Bases de Datos”
+SELECT nombre
+FROM asignatura 
+WHERE id_grado = (
+    SELECT id_grado
+    FROM asignatura
+    WHERE nombre = 'Bases de Datos'
+);
 
 -- 15. Nombre de las asignaturas que no son las que menos créditos tienen
+select nombre from asignatura where creditos > (select min(creditos) from asignatura); 
+select nombre from asignatura where creditos not in (select min(creditos) from asignatura);
 
 -- 16. Nombre de las asignaturas que no son las que más créditos tienen
+select nombre from asignatura where creditos < (select max(creditos) from asignatura);
 
 -- Show the number of students enrolled in each course (curso_escolar), along 
 -- with the course start and end year.
@@ -67,3 +78,9 @@ join curso_escolar cu on (al.id_curso_escolar = cu.id) group by cu.id;
 
 select count(a.id) as asignaturas_por_semestre, pro.nombre, pro.apellido1, pro.apellido2 from persona p 
 join profesor pro on (p.id = pro.id_profesor) natural join asignatura a GROUP BY a.cuatrimestre;
+
+--Show the number of students enrolled in each subject, including subjects with no students
+SELECT a.nombre, COUNT(al.id_alumno) AS num_alumnos
+FROM asignatura a
+LEFT JOIN alumno_se_matricula_asignatura al ON a.id = al.id_asignatura
+GROUP BY a.nombre;
