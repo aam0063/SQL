@@ -84,3 +84,86 @@ SELECT a.nombre, COUNT(al.id_alumno) AS num_alumnos
 FROM asignatura a
 LEFT JOIN alumno_se_matricula_asignatura al ON a.id = al.id_asignatura
 GROUP BY a.nombre;
+
+-- 1. Mostrar el nombre de las asignaturas y el nombre del grado al que pertenecen.
+    select a.nombre, g.nombre from asignatura a join grado g on (a.id_grado = g.id);
+
+-- 2. Mostrar el nombre y apellidos de los profesores junto con el nombre de su departamento.
+    select per.nombre, per.apellido1, per.apellido2, d.nombre from profesor pro join
+    persona per on (per.id = pro.id_profesor) join departamento d on (pro.id_departamento = d.id);
+
+-- 3. Mostrar las asignaturas que tienen profesor asignado.
+    select a.nombre from profesor pro natural join
+    asignatura a;
+
+-- 4. Mostrar los alumnos que están matriculados en alguna asignatura.
+    select per.nombre from alumno_se_matricula_asignatura al join 
+    persona per on (al.id_alumno = per.id);
+
+-- 5. Mostrar las asignaturas que pertenecen al mismo grado que “Bases de Datos”.
+    select nombre from asignatura where id_grado = 
+    (select id_grado from asignatura where nombre = 'Bases de datos');
+
+-- 6. Mostrar los profesores que imparten al menos una asignatura.
+    select nombre from persona where id in
+    (select id_profesor from asignatura); 
+
+-- 7. Mostrar los grados que tienen asignaturas asociadas.
+    select g.nombre from grado join asignatura a on (g.id = a.id_grado);
+
+-- 8. Mostrar las asignaturas que tienen más créditos que la media.
+    select nombre from asignatura where creditos >
+    (select avg(creditos) from asignatura);
+
+-- 9. Mostrar cuántas asignaturas imparte cada profesor.
+    select per.nombre, pro.id_profesor, count(a.id) from profesor pro natural join
+    asignatura a join persona per on (pro.id_profesor = per.id) group by pro.id_profesor;
+
+-- 10. Mostrar los alumnos que se han matriculado en más de una asignatura.
+    select per.nombre from alumno_se_matricula_asignatura al join
+     persona per on (al.id_alumno = per.id)
+      group by al.id_alumno having count(al.id_asignatura) > 1;
+
+-- 1. Listar los nombres de los alumnos que no están matriculados en ninguna asignatura
+    SELECT nombre 
+    FROM persona 
+    WHERE tipo = 'alumno' 
+  AND id NOT IN (
+    SELECT id_alumno 
+    FROM alumno_se_matricula_asignatura
+  );
+
+-- 2. Mostrar los profesores que no tienen ninguna asignatura asignada
+    select nombre from persona where id not in 
+    (select id_profesor from asignatura); 
+
+-- 3. Mostrar los grados que no tienen asignaturas de más de 6 créditos
+    select nombre from grado where id not in
+    (select id_grado from asignatura where creditos > 6); 
+
+-- 4. Listar los alumnos que están matriculados en todas las asignaturas del primer curso
+    SELECT nombre 
+    FROM persona 
+    WHERE tipo = 'alumno' 
+    AND id NOT IN (
+    SELECT id_alumno 
+    FROM alumno_se_matricula_asignatura 
+    WHERE id_asignatura NOT IN (
+      SELECT id 
+      FROM asignatura 
+      WHERE curso = 1
+    )
+  );
+
+
+-- 5. Mostrar los profesores que imparten asignaturas en más de un cuatrimestre
+
+    SELECT nombre 
+    FROM persona 
+    WHERE tipo = 'profesor' 
+    AND id IN (
+    SELECT id_profesor 
+    FROM asignatura 
+    GROUP BY id_profesor 
+    HAVING COUNT(DISTINCT cuatrimestre) > 1
+  );

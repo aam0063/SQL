@@ -39,9 +39,8 @@ select pro.nombre, pro.apellido1, pro.apellido2, d.nombre from pro profesor join
 select * from persona p join profesor pr on (pr.id_profesor = p.id) join departamentos d on (pr.id_profesor = p.id) join departamento d on (pr.id_departamento = d.id);
 
 -- 6. Obtener las alumnas que no sean las de mayor edad
-select * from persona;
-
--- select * from persona where tipo = alumno and sexo = 'M' = (select
+select nombre from persona where tipo = 'alumno' and sexo = 'M' and fecha_nacimiento >
+(select min(fecha_nacimiento)from persona);
 
 -- 7. Saca todos los datos de los grados tenga o no asignadas
 select * from asignatura a join grado g on (g.id = a.id_grado);
