@@ -32,7 +32,8 @@ select * from profesor;
 select * from persona;
 select * from departamento;
 select * from ;
-select pro.nombre, pro.apellido1, pro.apellido2, d.nombre from pro profesor join d departamento on (pro.id_departamento = d.id) join p persona on (d.id_profesor = p.id);
+select pro.nombre, pro.apellido1, pro.apellido2, d.nombre from pro profesor join
+ d departamento on (pro.id_departamento = d.id) join p persona on (d.id_profesor = p.id);
 
 
 
