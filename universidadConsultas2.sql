@@ -1,3 +1,4 @@
+use universidad;
 -- 1. Obtener la alumna con mayor edad.
 select * from persona where fecha_nacimiento = (select min(fecha_nacimiento) from persona where tipo = 'alumno' and sexo = 'M');
 
@@ -48,6 +49,13 @@ select * from asignatura where creditos = (select max(creditos) from asignatura)
 select * from asignatura where creditos = (select min(creditos) from asignatura);
 
 -- 13. Muestra por cada grado la suma de sus créditos.
+select nombre, sum(creditos) from asignatura;
+
+select g.nombre, a.sum(creditos) from asignatura a join grado g on (a.id_grado = g.id);
+
+
+
+
 select g.nombre, sum(a.creditos) as suma_creditos from grado g join
  asignatura a on (g.id = a.id_grado) group by g.nombre;
 
@@ -79,7 +87,7 @@ join curso_escolar cu on (al.id_curso_escolar = cu.id) group by cu.id;
 select count(a.id) as asignaturas_por_semestre, pro.nombre, pro.apellido1, pro.apellido2 from persona p 
 join profesor pro on (p.id = pro.id_profesor) natural join asignatura a GROUP BY a.cuatrimestre;
 
---Show the number of students enrolled in each subject, including subjects with no students
+-- Show the number of students enrolled in each subject, including subjects with no students
 SELECT a.nombre, COUNT(al.id_alumno) AS num_alumnos
 FROM asignatura a
 LEFT JOIN alumno_se_matricula_asignatura al ON a.id = al.id_asignatura
@@ -157,6 +165,18 @@ GROUP BY a.nombre;
 
 
 -- 5. Mostrar los profesores que imparten asignaturas en más de un cuatrimestre
+select nombre from persona where tipo = 'profesor' and 
+ id in (select id_profesor from asignatura)GROUP BY id_profesor 
+    HAVING COUNT(DISTINCT cuatrimestre) > 1;
+
+
+
+
+
+
+
+
+
 
     SELECT nombre 
     FROM persona 
