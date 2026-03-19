@@ -79,3 +79,7 @@ revoke select on gestion_centro.* from 'carlos_user'@'localhost';
 grant select on gestion_centro.vista_profesores_seguridad to 'carlos_user'@'localhost';
 
 flush privileges;
+
+-- EJERCICIO 7: REVOCAR PERMISOS
+-- Quitar a Daniel el permiso INSERT
+-- Comprobar que ya no puede insertar
