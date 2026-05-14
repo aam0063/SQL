@@ -35,3 +35,12 @@ create or replace type moto under vehiculo(
 create table CocheElectricos of CocheElectrico;
 create table Motos of Moto;
 
+declare
+    ce1 CocheElectrico;
+begin
+    ce1 := CocheElectrico('ELEC123','Tesla','Model S',2022,600);
+    ce1.aumentarAutonomia(100);
+    insert into CochesElectricos values(ce1);
+    
+end;
+
