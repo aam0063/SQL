@@ -35,3 +35,12 @@ create or replace type Profesor under Persona(
     member procedure aumentarSalario (cantidad number)
 );
 
+create or replace type body Profesor AS 
+    member procedure aumentarSalario (cantidad number)
+    begin
+        self.salario := self.salario + cantidad;
+    end;
+    
+    create table Alumnos of alumno;
+    create table profesores of profesor;
+
