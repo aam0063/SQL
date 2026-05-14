@@ -50,5 +50,6 @@ begin
     select value(c) into ce1 from CochesElectricos c where matricula ='ELEC123';
     dbms_output.put_line('Antiguedad del vehiculo' || ce1.calcularAntiguedad || 'años');
     ce1.aumentarAutonomia(200);
+    update CochesElectricos cochee set value(cochee) = ce1 WHERE cochee.matricula = 'ELEC123';
 end;
 
