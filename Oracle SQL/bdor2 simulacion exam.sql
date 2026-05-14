@@ -44,11 +44,6 @@ begin
     dbms_output.put_line('Autonomia actualizada del coche ' || ce1.matricula || 'es'
     ce1.autonomia || ' kms');
     
-declare
-    ce1 cocheElectrico;
-begin
-    select value(c) into ce1 from CochesElectricos c where matricula ='ELEC123';
-    dbms_output.put_line('Antiguedad del vehiculo' || ce1.calcularAntiguedad || 'años');
-    ce1.aumentarAutonomia(200);
+    
 end;
 
