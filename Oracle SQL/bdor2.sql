@@ -41,6 +41,9 @@ begin
     ce1 := CocheElectrico('ELEC123','Tesla','Model S',2022,600);
     ce1.aumentarAutonomia(100);
     insert into CochesElectricos values(ce1);
+    dbms_output.put_line('Autonomia actualizada del coche ' || ce1.matricula || 'es'
+    ce1.autonomia || ' kms');
+    
     
 end;
 
