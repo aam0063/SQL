@@ -8,21 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProductoTest {
 
     @Test
-    public void crearProductoRamenEspacial() {
+    public void crearProductoPasta() {
 
-        Producto producto = new Producto("Ramen espacial", 7.5);
+        Producto producto = new Producto("pasta", 7.5);
 
-        assertEquals("Ramen espacial", producto.getNombre());
+        assertEquals("pasta", producto.getNombre());
         assertEquals(7.5, producto.getPrecio());
     }
 
     @Test
-    public void vaciarCarritoGalactico() {
+    public void vaciarCarrito() {
 
         Carrito carrito = new Carrito();
 
-        carrito.agregarProducto(new Producto("Galleta lunar", 2));
-        carrito.agregarProducto(new Producto("Refresco marciano", 3));
+        carrito.agregarProducto(new Producto("galleta", 2));
+        carrito.agregarProducto(new Producto("selbesa", 3));
 
         carrito.vaciar();
 
