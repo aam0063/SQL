@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: junit5.catalogo.PedidoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.065 s <<< FAILURE! -- in junit5.catalogo.PedidoTest
+junit5.catalogo.PedidoTest.testCantidad -- Time elapsed: 0.031 s <<< ERROR!
+java.lang.Error: 
+Unresolved compilation problems: 
+	The constructor Producto(String, int) is undefined
+	The constructor Producto(String, int) is undefined
+
+	at junit5.catalogo.PedidoTest.testCantidad(PedidoTest.java:13)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

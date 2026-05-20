@@ -1,0 +1,9 @@
+com\mycompany\junit5\catalogo\Carrito.class
+com\mycompany\junit5\pagos\PagoException.class
+com\mycompany\junit5\pagos\SinFondosProveedor.class
+com\mycompany\junit5\pagos\PayPalProveedor.class
+com\mycompany\junit5\catalogo\Pagable.class
+com\mycompany\junit5\catalogo\Producto.class
+com\mycompany\junit5\pagos\ProveedorPagos.class
+com\mycompany\junit5\catalogo\Pedido.class
+com\mycompany\junit5\Junit5.class
